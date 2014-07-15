@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JOII Diagram Demo</title>
+
+    <!-- Load required files (zip_deflate for plantuml render support) -->
+    <script type="text/javascript" src="vendor/joii.js"></script>
+    <script type="text/javascript" src="vendor/zip_deflate.js"></script>
+
+    <!-- The Diagram Plugin -->
+    <script type="text/javascript" src="src/joii.diagram.js"></script>
+
+    <!-- Some test classes to render a diagram for -->
+    <script type="text/javascript" src="demostuff.js"></script>
+
+</head>
+<body>
+<img id="demo">
+<script>
+// Instantiate a new JoiiDiagram
+var compiler = new JoiiDiagram([
+    // Specify a list of classes to render
+    Application.System.AuthenticationManager,
+    Application.User.UserProvider,
+    Application.User.Administrator,
+    Application.User.Moderator,
+    Application.User.Guest
+], { 
+    // Define the scope where the classes can be found.
+    'Application': Application 
+});
+
+// Add some extra relations between classes.
+compiler.addRelation('Application.User.UserProvider', 'Application.System.AuthenticationManager', null, '1')
+        .addRelation('Application.User.User', 'Application.User.UserProvider', '->', '*')
+
+// Get source code for our PlantUML diagram.
+var src = compiler.getPlantUML();
+
+// Render the actual diagram (code for this is in vendor/zip_deflate.js)
+// It uses the form located on http://www.plantuml.com/plantuml/
+document.getElementById("demo").src = RenderPlantUML(src);
+</script>
+</body>
+</html>
