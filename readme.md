@@ -1,5 +1,7 @@
 # JOII Diagram Generator
 
+This is a plugin for JOII: <https://github.com/haroldiedema/joii>
+
 This plugin allows you to generate class diagrams for JOII-based classes. At this moment, it only supports PlantUML. More types may be added by (pull-) request if you wish to see more diagram types implemented.
 
 Example diagram:
